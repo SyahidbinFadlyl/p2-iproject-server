@@ -1,6 +1,6 @@
 
 async function errorHandler(error, req, res, next) {
-
+    console.log(error);
     if (error.name === "InvalidEmailOrPassword") {
         res.status(400).json({
             message: "Invalid email or password"

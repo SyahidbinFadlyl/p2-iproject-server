@@ -60,18 +60,28 @@ class PostController {
                 include: [
                     {
                         model: User,
-                        attributes: ["id", "email", "username"]
+                        attributes: ["id", "email", "username", "photo"]
                     },
                     {
                         model: Like,
                     },
                     {
                         model: Comment,
-                        include: [{ model: User, attributes: ["id", "email", "username"] }],
+                        include: [{ model: User, attributes: ["id", "email", "username", "photo"] }],
                     }
                 ],
                 order: [[Comment, "id", "DESC"]]
             });
+            const like = await Like.findOne({
+                where: {
+                    PostId: post.id
+                }
+            });
+            if (like) {
+                post.dataValues.liked = "Unlike";
+            } else {
+                post.dataValues.liked = "Like";
+            }
             res.status(200).json({
                 post
             });

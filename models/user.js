@@ -61,6 +61,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Photo required",
+        },
+        notNull: {
+          msg: "Photo required"
+        }
+      }
+    }
   }, {
     hooks: {
       beforeCreate(user, options) {

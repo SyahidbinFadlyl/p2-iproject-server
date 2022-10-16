@@ -17,6 +17,7 @@ module.exports = {
       username: "Tanaka Ryuunosuke",
       email: "tanaka.ryu18@gmail.com",
       password: hashPassword("tanaka"),
+      photo: "https://friendsofjustice.files.wordpress.com/2015/12/light-in-darkness.jpg",
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
