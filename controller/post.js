@@ -2,7 +2,12 @@ const { Post, User, Like, Comment } = require("../models");
 class PostController {
     static async readAllPost(req, res, next) {
         try {
-            const post = await Post.findAll({
+            const { limit } = req.query;
+            let limitPost = 10;
+            if (limit && !isNaN(limit)) {
+                limitPost = limit;
+            }
+            const param = {
                 include: [
                     {
                         model: User,
@@ -15,9 +20,15 @@ class PostController {
                 ],
                 order: [
                     ['id', 'DESC']
-                ]
+                ],
+                limit: limitPost
+            };
+
+            const post = await Post.findAll(param);
+            res.status(200).json({
+                limit: limitPost,
+                post: post
             });
-            res.status(200).json(post);
         } catch (error) {
             next(error);
         }
